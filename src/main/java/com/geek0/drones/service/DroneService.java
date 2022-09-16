@@ -15,4 +15,8 @@ public class DroneService {
     public List<Drone> getAllDrones() {
         return droneRepository.findAll();
     }
+
+    public void registerDrone(Drone drone) {
+        droneRepository.insert(drone);
+    }
 }

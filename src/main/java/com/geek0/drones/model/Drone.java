@@ -12,6 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Drone {
     @Id
     private String id;
+
+    public Drone(String serialNumber, double weight, int batteryLevel, ModelWeight modelWeight, State state) {
+        this.serialNumber = serialNumber;
+        this.weight = weight;
+        this.batteryLevel = batteryLevel;
+        this.modelWeight = modelWeight;
+        this.state = state;
+    }
+
     @Indexed(unique = true)
     private String serialNumber;
     private double weight;
