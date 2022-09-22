@@ -19,4 +19,8 @@ public class MedicationService {
     public void saveMedication(Medication medication) {
         medicationRepository.insert(medication);
     }
+
+    public Iterable<Medication> medicationsByIds(List<String> medicationIds) {
+         return medicationRepository.findAllById(medicationIds);
+    }
 }
