@@ -35,4 +35,14 @@ public class DroneController {
 //    public Iterable<Drone> fetchLoadingDrones() {
 //
 //    }
+
+    /**
+     * Fetch drone battery level
+     * @param droneId
+     * @return
+     */
+    @GetMapping("/{droneId}/battery")
+    public Integer fetchDroneBatteryLevel(@PathVariable("droneId") String droneId) {
+        return droneService.fetchDroneBatteryLevel(droneId);
+    }
 }

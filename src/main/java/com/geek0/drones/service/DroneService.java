@@ -19,4 +19,14 @@ public class DroneService {
     public void registerDrone(Drone drone) {
         droneRepository.insert(drone);
     }
+
+    /**
+     * Fetch drone battery level
+     * @param droneId (id of selected/given drone)
+     * @return Integer (Battery level)
+     */
+    public Integer fetchDroneBatteryLevel(String droneId) {
+        Drone drone = droneRepository.findDroneById(droneId);
+        return drone.getBatteryLevel();
+    }
 }
