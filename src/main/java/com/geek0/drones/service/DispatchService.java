@@ -1,6 +1,5 @@
 package com.geek0.drones.service;
 
-import com.geek0.drones.Constants;
 import com.geek0.drones.model.Dispatch;
 import com.geek0.drones.model.Medication;
 import com.geek0.drones.repository.DispatchRepository;
@@ -8,6 +7,7 @@ import com.geek0.drones.repository.MedicationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,24 +22,42 @@ public class DispatchService {
     }
 
     public void saveUpdateDispatch(Dispatch dispatch) {
-//        int maxWeight = Constants.getMaxWeight();
         List<String> medicationIds = dispatch.getMedicationIds();
         Iterable<Medication> medications = medicationService.medicationsByIds(medicationIds);
         int totalWeight = 0;
-        int maxWeight = 200;
+        //TODO: Make max weight globally accessible constant
+        int maxWeight = 500;
 
         for (Medication medication : medications) {
             totalWeight += medication.getWeight();
         }
 
-        if (totalWeight > maxWeight) {
-
+        //TODO: Include respective responses for successful and failed create dispatches depending on weight. Return JSONObject
+        if (totalWeight <= maxWeight) {
+            dispatchRepository.save(dispatch);
         }
 
-        dispatchRepository.save(dispatch);
     }
 
-    public List fetchLoadedMeds(List<String> medicationIds) {
-        return (List) medicationRepository.findAllById(medicationIds);
+    /**
+     * Fetch loaded medications for a given drone
+     * @param droneId
+     * @return
+     */
+    public Iterable<Medication> fetchLoadedMedications(String droneId) {
+        //get dispatch details by droneId
+        Dispatch dispatch = fetchDispatchByDroneId(droneId);
+        List<String> medicationsIds = dispatch.getMedicationIds();
+
+        return medicationService.medicationsByIds(medicationsIds);
+    }
+
+    /**
+     * Fetch dispatch details for a chosen drone
+     * @param droneId
+     * @return
+     */
+    public Dispatch fetchDispatchByDroneId(String droneId) {
+        return dispatchRepository.findByDroneId(droneId);
     }
 }
