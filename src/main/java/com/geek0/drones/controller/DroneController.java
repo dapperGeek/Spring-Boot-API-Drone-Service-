@@ -45,4 +45,9 @@ public class DroneController {
     public Integer fetchDroneBatteryLevel(@PathVariable("droneId") String droneId) {
         return droneService.fetchDroneBatteryLevel(droneId);
     }
+
+    @GetMapping("/loadable")
+    public List<Drone> fetchLoadableDrones() {
+        return droneService.fetchLoadableDrones();
+    }
 }
