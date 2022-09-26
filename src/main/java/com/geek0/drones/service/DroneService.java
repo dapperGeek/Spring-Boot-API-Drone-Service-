@@ -1,6 +1,7 @@
 package com.geek0.drones.service;
 
 import com.geek0.drones.enums.State;
+import com.geek0.drones.model.BatteryLog;
 import com.geek0.drones.model.Drone;
 import com.geek0.drones.repository.DroneRepository;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,8 +22,9 @@ public class DroneService {
         return droneRepository.findAll();
     }
 
-    public void registerDrone(Drone drone) {
+    public Iterable<Drone> registerDrone(Drone drone) {
         droneRepository.insert(drone);
+        return droneRepository.findAll();
     }
 
     /**
@@ -36,12 +37,30 @@ public class DroneService {
         return drone.getBatteryLevel();
     }
 
-    public List<Drone> fetchLoadableDrones() {
+    public Iterable<Drone> fetchLoadableDrones() {
 //        List<Drone> loadableDrone = new ArrayList<>();
         Query query = new Query();
         query.addCriteria(Criteria.where("state").in(State.IDLE, State.LOADING));
         query.addCriteria(Criteria.where("batteryLevel").gt(25));
 
         return mongoTemplate.find(query, Drone.class);
+    }
+
+    public void alterBatteries() {
+        Iterable<Drone> drones = droneRepository.findAll();
+
+        for (Drone drone : drones) {
+            int newBatteryLevel = drone.getBatteryLevel() - 3;
+
+            if (drone.getBatteryLevel() <= 25) {
+                drone.setState(State.IDLE);
+            }
+
+            drone.setBatteryLevel(newBatteryLevel);
+
+            droneRepository.save(drone);
+            }
+
+//        return droneRepository.findAll();
     }
 }

@@ -8,27 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class DronesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DronesApplication.class, args);
 	}
-
-//	@Bean
-//	CommandLineRunner runner(DroneRepository droneRepository) {
-//
-//		return args -> {
-//			Drone drone = new Drone(
-//					"SN00288399IJB",
-//					98.0,
-//					68,
-//					ModelWeight.MIDDLEWEIGHT,
-//					State.IDLE
-//			);
-//
-//			droneRepository.insert(drone);
-//		};
-//	}
 }
