@@ -22,8 +22,17 @@ public class DroneService {
         return droneRepository.findAll();
     }
 
+    public Drone fetchDrone(String droneId) {
+        return droneRepository.findDroneById(droneId);
+    }
+
     public Iterable<Drone> registerDrone(Drone drone) {
-        droneRepository.insert(drone);
+        droneRepository.save(drone);
+        return droneRepository.findAll();
+    }
+
+    public Iterable<Drone> updateDrone(Drone drone) {
+        droneRepository.save(drone);
         return droneRepository.findAll();
     }
 
@@ -38,7 +47,6 @@ public class DroneService {
     }
 
     public Iterable<Drone> fetchLoadableDrones() {
-//        List<Drone> loadableDrone = new ArrayList<>();
         Query query = new Query();
         query.addCriteria(Criteria.where("state").in(State.IDLE, State.LOADING));
         query.addCriteria(Criteria.where("batteryLevel").gt(25));

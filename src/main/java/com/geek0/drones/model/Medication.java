@@ -11,14 +11,14 @@ public class Medication {
     @Id
     private String id;
     private String name;
-    private int weight;
+    private double weight;
     @Indexed(unique = true)
     private String code;
     private String image;
 
     public Medication(
             String name,
-            int weight,
+            double weight,
             String code,
             String image)
     {

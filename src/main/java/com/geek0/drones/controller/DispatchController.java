@@ -19,7 +19,12 @@ public class DispatchController {
     }
 
     @PostMapping
-    public void saveUpdateDispatch(@RequestBody Dispatch dispatch) {
-        dispatchService.saveUpdateDispatch(dispatch);
+    public Iterable<Dispatch> saveDispatch(@RequestBody Dispatch dispatch) {
+        return dispatchService.saveUpdateDispatch(dispatch);
+    }
+
+    @PutMapping("/{dispatchId}")
+    public Iterable<Dispatch> updateDispatch(@RequestBody Dispatch dispatch) {
+        return dispatchService.saveUpdateDispatch(dispatch);
     }
 }

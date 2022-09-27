@@ -22,8 +22,8 @@ public class DroneController {
     }
 
     @PostMapping
-    public void registerDrone(@RequestBody Drone drone) {
-        droneService.registerDrone(drone);
+    public Iterable<Drone> registerDrone(@RequestBody Drone drone) {
+        return droneService.registerDrone(drone);
     }
 
     @GetMapping("/{droneId}/medications")
@@ -46,8 +46,18 @@ public class DroneController {
         return droneService.fetchDroneBatteryLevel(droneId);
     }
 
+    @GetMapping("/{droneId}")
+    public Drone fetchDrone(@PathVariable("droneId") String droneId) {
+        return droneService.fetchDrone(droneId);
+    }
+
+    @PutMapping("/{droneId}")
+    public Iterable<Drone> updateDrone(@PathVariable("droneId") String droneId, @RequestBody Drone drone) {
+        return droneService.updateDrone(drone);
+    }
+
     @GetMapping("/loadable")
-    public List<Drone> fetchLoadableDrones() {
+    public Iterable<Drone> fetchLoadableDrones() {
         return droneService.fetchLoadableDrones();
     }
 }

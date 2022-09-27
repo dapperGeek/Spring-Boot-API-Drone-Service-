@@ -1,8 +1,10 @@
 package com.geek0.drones.service;
 
 import com.geek0.drones.model.Dispatch;
+import com.geek0.drones.model.Drone;
 import com.geek0.drones.model.Medication;
 import com.geek0.drones.repository.DispatchRepository;
+import com.geek0.drones.repository.DroneRepository;
 import com.geek0.drones.repository.MedicationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,28 +17,32 @@ import java.util.List;
 public class DispatchService {
     private final DispatchRepository dispatchRepository;
     private final MedicationRepository medicationRepository;
+    private final DroneRepository droneRepository;
     private final MedicationService medicationService;
 
     public List<Dispatch> getDispatches() {
         return dispatchRepository.findAll();
     }
 
-    public void saveUpdateDispatch(Dispatch dispatch) {
+    public Iterable<Dispatch> saveUpdateDispatch(Dispatch dispatch) {
         List<String> medicationIds = dispatch.getMedicationIds();
+        String droneId = dispatch.getDroneId();
+        Drone drone = droneRepository.findDroneById(droneId);
+        double weightLimit = drone.getWeightLimit();
+
         Iterable<Medication> medications = medicationService.medicationsByIds(medicationIds);
-        int totalWeight = 0;
-        //TODO: Make max weight globally accessible constant
-        int maxWeight = 500;
+        double totalWeight = 0;
 
         for (Medication medication : medications) {
             totalWeight += medication.getWeight();
         }
 
         //TODO: Include respective responses for successful and failed create dispatches depending on weight. Return JSONObject
-        if (totalWeight <= maxWeight) {
+        if (totalWeight <= weightLimit) {
             dispatchRepository.save(dispatch);
         }
 
+        return dispatchRepository.findAll();
     }
 
     /**
