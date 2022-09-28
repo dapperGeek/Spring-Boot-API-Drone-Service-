@@ -20,17 +20,17 @@ public class Dispatch {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Dispatch(String droneId, List<String> medicationIds) {
-        this.droneId = droneId;
-        this.medicationIds = medicationIds;
-    }
+//    public Dispatch(String droneId, List<String> medicationIds) {
+//        this.droneId = droneId;
+//        this.medicationIds = medicationIds;
+//    }
 
-    public Dispatch(String droneId, List<String> medicationIds, State state, LocalDateTime createdAt) {
-        this.droneId = droneId;
-        this.medicationIds = medicationIds;
-        this.state = state;
-        this.createdAt = createdAt;
-    }
+//    public Dispatch(String droneId, List<String> medicationIds, State state, LocalDateTime createdAt) {
+//        this.droneId = droneId;
+//        this.medicationIds = medicationIds;
+//        this.state = state;
+//        this.createdAt = createdAt;
+//    }
 
     public Dispatch(String droneId, List<String> medicationIds, State state, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.droneId = droneId;
@@ -39,10 +39,4 @@ public class Dispatch {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-    /**TODO: Dispatches should represent a log
-     * Add created and updated times
-     * Add State
-     */
-
 }
