@@ -45,9 +45,7 @@
       </ul>
     </li>
     <li><a href="#testing-endpoints">Testing Endpoints</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -99,7 +97,7 @@ The project is developed using the following technologiea.
 
 ### Installation
 
-_To run project locally:
+To run project locally:
 
 1. Clone the repo
    ```sh
@@ -300,8 +298,8 @@ Project Link on GitHub: [https://github.com/dapperGeek/Spring-Boot-API-Drone-Ser
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [Amigos Code](https://choosealicense.com)
-* [FreeCodeCamp](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Amigos Code](https://amigoscode.com)
+* [FreeCodeCamp](https://freecodecamp.org)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
